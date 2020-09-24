@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' show json;
+import 'package:fl_chart/fl_chart.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,7 +21,6 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       cases = data["statewise"];
     });
-    debugPrint(cases[0].toString());
   }
 
   @override
@@ -41,6 +41,24 @@ class _MyAppState extends State<MyApp> {
             crossAxisCount: 2,
             padding: EdgeInsets.all(20),
             children: [
+              Card(
+                child: PieChart(
+                  PieChartData(sections: [
+                    PieChartSectionData(
+                        value: double.parse(cases[0]["active"]),
+                        title: "Active",
+                        color: Color(0xfff8b250)),
+                    PieChartSectionData(
+                      value: double.parse(cases[0]["deaths"]),
+                      title: "Deaths",
+                    ),
+                    PieChartSectionData(
+                        value: double.parse(cases[0]["recovered"]),
+                        title: "Recovered",
+                        color: Color(0xff13d38e))
+                  ]),
+                ),
+              ),
               Card(
                 child: Column(
                   children: [Text("Active"), Text("${cases[0]["active"]}")],
