@@ -34,75 +34,199 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: "Covid19Updates",
       home: Scaffold(
-          appBar: AppBar(
-            title: Text("Covid19_Updates"),
-          ),
-          body: GridView.count(
-            crossAxisCount: 2,
-            padding: EdgeInsets.all(20),
-            children: [
-              Card(
-                child: PieChart(
-                  PieChartData(sections: [
-                    PieChartSectionData(
-                        value: double.parse(cases[0]["active"]),
-                        title: "Active",
-                        color: Color(0xfff8b250)),
-                    PieChartSectionData(
-                      value: double.parse(cases[0]["deaths"]),
-                      title: "Deaths",
+        appBar: AppBar(
+          title: Text("Covid19_Updates"),
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Card(
+              child: Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(15),
+                  height: 200,
+                  child: Row(
+                    children: [
+                      PieChart(
+                        PieChartData(
+                          sections: [
+                            PieChartSectionData(
+                              value: double.parse(cases[0]["active"]),
+                              color: Colors.deepOrangeAccent,
+                              title: "Active",
+                            ),
+                            PieChartSectionData(
+                              title: "Recovered",
+                              color: Colors.green,
+                              value: double.parse(
+                                cases[0]["recovered"],
+                              ),
+                            ),
+                            PieChartSectionData(
+                              title: "Deaths",
+                              color: Colors.redAccent,
+                              value: double.parse(cases[0]["deaths"]),
+                            )
+                          ],
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                color: Colors.deepOrangeAccent,
+                                height: 20,
+                                width: 20,
+                              ),
+                              Text("Active"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                color: Colors.greenAccent,
+                                height: 20,
+                                width: 20,
+                              ),
+                              Text("Recovered"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                color: Colors.redAccent,
+                                height: 20,
+                                width: 20,
+                              ),
+                              Text("Deaths"),
+                            ],
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(15),
+              height: 150,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Card(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Confirmed"),
+                          Text("${cases[0]["confirmed"]}")
+                        ],
+                      ),
                     ),
-                    PieChartSectionData(
-                        value: double.parse(cases[0]["recovered"]),
-                        title: "Recovered",
-                        color: Color(0xff13d38e))
-                  ]),
-                ),
-              ),
-              Card(
-                child: Column(
-                  children: [Text("Active"), Text("${cases[0]["active"]}")],
-                ),
-              ),
-              Card(
-                child: Center(
-                  child: Column(
-                    children: [
-                      Text("Confirmed"),
-                      Text("${cases[0]["confirmed"]}")
-                    ],
                   ),
-                ),
-              ),
-              Card(
-                child: Center(
-                  child: Column(
-                    children: [
-                      Text("Recovered"),
-                      Text("${cases[0]["recovered"]}")
-                    ],
+                  Expanded(
+                    flex: 1,
+                    child: Card(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Active"),
+                          Text("${cases[0]["active"]}"),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-              Card(
-                child: Center(
-                  child: Column(
-                    children: [Text("Deaths"), Text("${cases[0]["deaths"]}")],
+            ),
+            Container(
+              height: 150,
+              padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Card(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Recovered"),
+                          Text("${cases[0]["recovered"]}")
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Card(
-                child: Center(
-                  child: Column(
-                    children: [
-                      Text("Last_Updated_Time"),
-                      Text("${cases[0]["lastupdatedtime"]}")
-                    ],
+                  Expanded(
+                    flex: 1,
+                    child: Card(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Deaths"),
+                          Text("${cases[0]["deaths"]}")
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          )),
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+              height: 100,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Card(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Last_Updated_Time"),
+                          Text("${cases[0]["lastupdatedtime"]}")
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                    child: ButtonTheme(
+                      minWidth: 190,
+                      height: 60,
+                      child: RaisedButton(
+                        onPressed: () {},
+                        child: Text("Statewise"),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                    child: ButtonTheme(
+                      height: 60,
+                      minWidth: 190,
+                      child: RaisedButton(
+                        onPressed: () {},
+                        child: Text("WorldWide"),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
