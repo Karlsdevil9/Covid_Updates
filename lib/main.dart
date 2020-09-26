@@ -40,71 +40,83 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Card(
-              child: Expanded(
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  height: 200,
-                  child: Row(
-                    children: [
-                      PieChart(
-                        PieChartData(
-                          sections: [
-                            PieChartSectionData(
-                              value: double.parse(cases[0]["active"]),
-                              color: Colors.deepOrangeAccent,
-                              title: "Active",
-                            ),
-                            PieChartSectionData(
-                              title: "Recovered",
-                              color: Colors.green,
-                              value: double.parse(
-                                cases[0]["recovered"],
-                              ),
-                            ),
-                            PieChartSectionData(
-                              title: "Deaths",
-                              color: Colors.redAccent,
-                              value: double.parse(cases[0]["deaths"]),
-                            )
-                          ],
-                        ),
-                      ),
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              Container(
+            Container(
+              margin: EdgeInsets.only(left: 15, top: 15, right: 15),
+              child: Card(
+                child: Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(15),
+                    height: 200,
+                    child: Row(
+                      children: [
+                        PieChart(
+                          PieChartData(
+                            borderData: FlBorderData(show: false),
+                            sections: [
+                              PieChartSectionData(
+                                showTitle: false,
+                                value: double.parse(cases[0]["active"]),
                                 color: Colors.deepOrangeAccent,
-                                height: 20,
-                                width: 20,
+                                title: "Active",
                               ),
-                              Text("Active"),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                color: Colors.greenAccent,
-                                height: 20,
-                                width: 20,
+                              PieChartSectionData(
+                                showTitle: false,
+                                title: "Recovered",
+                                color: Colors.green,
+                                value: double.parse(
+                                  cases[0]["recovered"],
+                                ),
                               ),
-                              Text("Recovered"),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
+                              PieChartSectionData(
+                                showTitle: false,
+                                title: "Deaths",
                                 color: Colors.redAccent,
-                                height: 20,
-                                width: 20,
-                              ),
-                              Text("Deaths"),
+                                value: double.parse(cases[0]["deaths"]),
+                              )
                             ],
                           ),
-                        ],
-                      )
-                    ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.all(5),
+                                  color: Colors.deepOrangeAccent,
+                                  height: 20,
+                                  width: 20,
+                                ),
+                                Text("Active"),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.all(5),
+                                  color: Colors.greenAccent,
+                                  height: 20,
+                                  width: 20,
+                                ),
+                                Text("Recovered"),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.all(5),
+                                  color: Colors.redAccent,
+                                  height: 20,
+                                  width: 20,
+                                ),
+                                Text("Deaths"),
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
