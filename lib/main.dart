@@ -45,12 +45,13 @@ class _MyAppState extends State<MyApp> {
               child: Card(
                 child: Expanded(
                   child: Container(
-                    padding: EdgeInsets.all(15),
                     height: 200,
                     child: Row(
                       children: [
                         PieChart(
                           PieChartData(
+                            sectionsSpace: 0,
+                            centerSpaceRadius: 40,
                             borderData: FlBorderData(show: false),
                             sections: [
                               PieChartSectionData(
@@ -77,7 +78,7 @@ class _MyAppState extends State<MyApp> {
                           ),
                         ),
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
