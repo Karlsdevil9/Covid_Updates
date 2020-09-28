@@ -9,19 +9,21 @@ class Worldwide extends StatefulWidget {
 }
 
 class _WorldwideState extends State<Worldwide> {
-  List cases;
-  Future fetchWorldwideData() async{
-  http.Response response = await http.get("https:// corona.lmao.ninja/v2/all");  
-  setState(() {
-   cases = json.decode(response.body); 
-  });
-   
+  Map cases;
+  Future fetchWorldwideData() async {
+    http.Response response = await http.get("https://corona.lmao.ninja/v2/all");
+    debugPrint(response.body);
+    setState(() {
+      cases = json.decode(response.body);
+    });
   }
+
   @override
   void initState() {
     fetchWorldwideData();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +47,7 @@ class _WorldwideState extends State<Worldwide> {
                           sections: [
                             PieChartSectionData(
                               showTitle: false,
-                              value: double.parse(active),
+                              value: double.parse(cases["active"].toString()),
                               color: Colors.deepOrangeAccent,
                               title: "Active",
                             ),
@@ -53,13 +55,14 @@ class _WorldwideState extends State<Worldwide> {
                               showTitle: false,
                               title: "Recovered",
                               color: Colors.green,
-                              value: double.parse(recovered),
+                              value:
+                                  double.parse(cases["recovered"].toString()),
                             ),
                             PieChartSectionData(
                               showTitle: false,
                               title: "Deaths",
                               color: Colors.redAccent,
-                              value: double.parse(deaths),
+                              value: double.parse(cases["deaths"].toString()),
                             )
                           ],
                         ),
@@ -120,7 +123,10 @@ class _WorldwideState extends State<Worldwide> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text("Confirmed"), Text(confirmed)],
+                      children: [
+                        Text("Confirmed"),
+                        Text(cases["cases"].toString())
+                      ],
                     ),
                   ),
                 ),
@@ -132,7 +138,7 @@ class _WorldwideState extends State<Worldwide> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Active"),
-                        Text(active),
+                        Text(cases["active"].toString()),
                       ],
                     ),
                   ),
@@ -150,7 +156,10 @@ class _WorldwideState extends State<Worldwide> {
                   child: Card(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text("Recovered"), Text(recovered)],
+                      children: [
+                        Text("Recovered"),
+                        Text(cases["recovered"].toString())
+                      ],
                     ),
                   ),
                 ),
@@ -159,7 +168,10 @@ class _WorldwideState extends State<Worldwide> {
                   child: Card(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text("Deaths"), Text(deaths)],
+                      children: [
+                        Text("Deaths"),
+                        Text(cases["deaths"].toString())
+                      ],
                     ),
                   ),
                 ),
@@ -178,7 +190,7 @@ class _WorldwideState extends State<Worldwide> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Affected Country"),
-                        Text(lastUpadtedTime)
+                        Text(cases["affectedCountries"].toString())
                       ],
                     ),
                   ),
@@ -186,44 +198,8 @@ class _WorldwideState extends State<Worldwide> {
               ],
             ),
           ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-                  child: ButtonTheme(
-                    minWidth: 190,
-                    height: 60,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      child: Text("Statewise"),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-                  child: ButtonTheme(
-                    height: 60,
-                    minWidth: 190,
-                    child: RaisedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Worldwide(),
-                          ),
-                        );
-                      },
-                      child: Text("WorldWide"),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )
         ],
-      ),,
+      ),
     );
   }
 }
