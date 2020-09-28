@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import './Worldwide.dart';
+import './Statewise.dart';
 
 class IndiaCases extends StatelessWidget {
   String confirmed, active, recovered, deaths, lastUpadtedTime;
@@ -184,7 +185,14 @@ class IndiaCases extends StatelessWidget {
                     minWidth: 190,
                     height: 60,
                     child: RaisedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => StatewiseCases(),
+                          ),
+                        );
+                      },
                       child: Text("Statewise"),
                     ),
                   ),
