@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' show json;
 import './IndiaCases.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
@@ -32,6 +33,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     return MaterialApp(
       title: "Covid19Updates",
       home: Scaffold(
