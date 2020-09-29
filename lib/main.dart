@@ -49,7 +49,6 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: "Covid19Updates",
       home: Scaffold(
-        appBar: AppBar(title: Text("Covid19_Updates")),
         body: check
             ? IndiaCases(
                 active: active,

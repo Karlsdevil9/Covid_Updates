@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import './IndiaCases.dart';
 
 class StatewiseCases extends StatefulWidget {
   @override
@@ -38,15 +39,16 @@ class _StatewiseCasesState extends State<StatewiseCases> {
           Container(
             height: 70,
             child: Card(
+              elevation: 8,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    "StateName",
+                    "State Name",
                     textAlign: TextAlign.left,
                   ),
                   Text(
-                    "TotalCases",
+                    "Total Cases",
                     textAlign: TextAlign.end,
                   ),
                 ],
@@ -62,20 +64,26 @@ class _StatewiseCasesState extends State<StatewiseCases> {
                   return Container(
                     margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                     height: 70,
-                    child: new Card(
+                    child: Card(
                       elevation: 5,
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            cases[index + 1]["state"],
-                            textAlign: TextAlign.left,
-                          ),
-                          Text(
-                            cases[index + 1]["confirmed"],
-                            textAlign: TextAlign.right,
-                          )
-                        ],
+                      child: new ListTile(
+                        leading: Text(cases[index + 1]["state"]),
+                        trailing: Text(cases[index + 1]["confirmed"]),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => IndiaCases(
+                                active: cases[index + 1]["active"],
+                                confirmed: cases[index + 1]["confirmed"],
+                                deaths: cases[index + 1]["deaths"],
+                                lastUpadtedTime: cases[index + 1]
+                                    ["lastupdatedtime"],
+                                recovered: cases[index + 1]["recovered"],
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   );
