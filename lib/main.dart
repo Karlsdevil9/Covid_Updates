@@ -4,6 +4,8 @@ import 'dart:convert' show json;
 import './IndiaCases.dart';
 import 'package:flutter/services.dart';
 
+String confirmed, active, recovered, deaths, lastUpadtedTime;
+bool check = false;
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -16,13 +18,21 @@ class _MyAppState extends State<MyApp> {
   List cases;
 
   Future getData() async {
-    http.Response response =
-        await http.get('https://api.covid19india.org/data.json');
+    try {
+      http.Response response =
+          await http.get('https://api.covid19india.org/data.json');
 
-    data = json.decode(response.body);
-    setState(() {
-      cases = data["statewise"];
-    });
+      data = json.decode(response.body);
+      setState(() {
+        cases = data["statewise"];
+        active = cases[0]["active"];
+        confirmed = cases[0]["confirmed"];
+        deaths = cases[0]["deaths"];
+        recovered = cases[0]["recovered"];
+        lastUpadtedTime = cases[0]["lastupdatedtime"];
+        check = true;
+      });
+    } catch (e) {}
   }
 
   @override
@@ -39,14 +49,17 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: "Covid19Updates",
       home: Scaffold(
-          appBar: AppBar(title: Text("Covid19_Updates")),
-          body: IndiaCases(
-            active: cases[0]["active"],
-            confirmed: cases[0]["confirmed"],
-            deaths: cases[0]["deaths"],
-            recovered: cases[0]["recovered"],
-            lastUpadtedTime: cases[0]["lastupdatedtime"],
-          )),
+        appBar: AppBar(title: Text("Covid19_Updates")),
+        body: check
+            ? IndiaCases(
+                active: active,
+                confirmed: confirmed,
+                deaths: deaths,
+                recovered: recovered,
+                lastUpadtedTime: lastUpadtedTime,
+              )
+            : new Center(child: new CircularProgressIndicator()),
+      ),
     );
   }
 }

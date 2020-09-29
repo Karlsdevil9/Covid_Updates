@@ -4,7 +4,7 @@ import './Worldwide.dart';
 import './Statewise.dart';
 
 class IndiaCases extends StatelessWidget {
-  String confirmed, active, recovered, deaths, lastUpadtedTime;
+  final String confirmed, active, recovered, deaths, lastUpadtedTime;
 
   IndiaCases(
       {this.active,
@@ -26,33 +26,35 @@ class IndiaCases extends StatelessWidget {
                   height: 200,
                   child: Row(
                     children: [
-                      PieChart(
-                        PieChartData(
-                          sectionsSpace: 0,
-                          centerSpaceRadius: 40,
-                          borderData: FlBorderData(show: false),
-                          sections: [
-                            PieChartSectionData(
-                              showTitle: false,
-                              value: double.parse(active),
-                              color: Colors.deepOrangeAccent,
-                              title: "Active",
-                            ),
-                            PieChartSectionData(
-                              showTitle: false,
-                              title: "Recovered",
-                              color: Colors.green,
-                              value: double.parse(recovered),
-                            ),
-                            PieChartSectionData(
-                              showTitle: false,
-                              title: "Deaths",
-                              color: Colors.redAccent,
-                              value: double.parse(deaths),
+                      active != null
+                          ? PieChart(
+                              PieChartData(
+                                sectionsSpace: 0,
+                                centerSpaceRadius: 40,
+                                borderData: FlBorderData(show: false),
+                                sections: [
+                                  PieChartSectionData(
+                                    showTitle: false,
+                                    value: double.parse(active),
+                                    color: Colors.deepOrangeAccent,
+                                    title: "Active",
+                                  ),
+                                  PieChartSectionData(
+                                    showTitle: false,
+                                    title: "Recovered",
+                                    color: Colors.green,
+                                    value: double.parse(recovered),
+                                  ),
+                                  PieChartSectionData(
+                                    showTitle: false,
+                                    title: "Deaths",
+                                    color: Colors.redAccent,
+                                    value: double.parse(deaths),
+                                  )
+                                ],
+                              ),
                             )
-                          ],
-                        ),
-                      ),
+                          : new Center(child: new CircularProgressIndicator()),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +111,10 @@ class IndiaCases extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text("Confirmed"), Text(confirmed)],
+                      children: [
+                        Text("Confirmed"),
+                        confirmed != null ? Text(confirmed) : Text("0"),
+                      ],
                     ),
                   ),
                 ),
@@ -121,7 +126,7 @@ class IndiaCases extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Active"),
-                        Text(active),
+                        active != null ? Text(active) : Text("0"),
                       ],
                     ),
                   ),
@@ -139,7 +144,10 @@ class IndiaCases extends StatelessWidget {
                   child: Card(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text("Recovered"), Text(recovered)],
+                      children: [
+                        Text("Recovered"),
+                        recovered != null ? Text(recovered) : Text("0"),
+                      ],
                     ),
                   ),
                 ),
@@ -148,7 +156,10 @@ class IndiaCases extends StatelessWidget {
                   child: Card(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text("Deaths"), Text(deaths)],
+                      children: [
+                        Text("Deaths"),
+                        deaths != null ? Text(deaths) : Text("0"),
+                      ],
                     ),
                   ),
                 ),
@@ -167,7 +178,9 @@ class IndiaCases extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Last_Updated_Time"),
-                        Text(lastUpadtedTime)
+                        lastUpadtedTime != null
+                            ? Text(lastUpadtedTime)
+                            : Text("0")
                       ],
                     ),
                   ),

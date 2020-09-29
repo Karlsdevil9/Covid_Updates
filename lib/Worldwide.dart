@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' show json;
 import 'package:fl_chart/fl_chart.dart';
 
+String confirmed, active, deaths, recovered, affectedCountries;
+
 class Worldwide extends StatefulWidget {
   @override
   _WorldwideState createState() => _WorldwideState();
@@ -15,6 +17,11 @@ class _WorldwideState extends State<Worldwide> {
     debugPrint(response.body);
     setState(() {
       cases = json.decode(response.body);
+      confirmed = cases["cases"].toString();
+      active = cases["active"].toString();
+      deaths = cases["deaths"].toString();
+      recovered = cases["recovered"].toString();
+      affectedCountries = cases["affectedCountries"].toString();
     });
   }
 
@@ -39,34 +46,35 @@ class _WorldwideState extends State<Worldwide> {
                   height: 200,
                   child: Row(
                     children: [
-                      PieChart(
-                        PieChartData(
-                          sectionsSpace: 0,
-                          centerSpaceRadius: 40,
-                          borderData: FlBorderData(show: false),
-                          sections: [
-                            PieChartSectionData(
-                              showTitle: false,
-                              value: double.parse(cases["active"].toString()),
-                              color: Colors.deepOrangeAccent,
-                              title: "Active",
-                            ),
-                            PieChartSectionData(
-                              showTitle: false,
-                              title: "Recovered",
-                              color: Colors.green,
-                              value:
-                                  double.parse(cases["recovered"].toString()),
-                            ),
-                            PieChartSectionData(
-                              showTitle: false,
-                              title: "Deaths",
-                              color: Colors.redAccent,
-                              value: double.parse(cases["deaths"].toString()),
+                      active != null
+                          ? PieChart(
+                              PieChartData(
+                                sectionsSpace: 0,
+                                centerSpaceRadius: 40,
+                                borderData: FlBorderData(show: false),
+                                sections: [
+                                  PieChartSectionData(
+                                    showTitle: false,
+                                    value: double.parse(active),
+                                    color: Colors.deepOrangeAccent,
+                                    title: "Active",
+                                  ),
+                                  PieChartSectionData(
+                                    showTitle: false,
+                                    title: "Recovered",
+                                    color: Colors.green,
+                                    value: double.parse(recovered),
+                                  ),
+                                  PieChartSectionData(
+                                    showTitle: false,
+                                    title: "Deaths",
+                                    color: Colors.redAccent,
+                                    value: double.parse(deaths),
+                                  )
+                                ],
+                              ),
                             )
-                          ],
-                        ),
-                      ),
+                          : new Center(child: new CircularProgressIndicator()),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,7 +133,7 @@ class _WorldwideState extends State<Worldwide> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Confirmed"),
-                        Text(cases["cases"].toString())
+                        cases != null ? Text(confirmed) : Text("0")
                       ],
                     ),
                   ),
@@ -138,7 +146,7 @@ class _WorldwideState extends State<Worldwide> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Active"),
-                        Text(cases["active"].toString()),
+                        active != null ? Text(active) : Text("0"),
                       ],
                     ),
                   ),
@@ -158,7 +166,7 @@ class _WorldwideState extends State<Worldwide> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Recovered"),
-                        Text(cases["recovered"].toString())
+                        recovered != null ? Text(recovered) : Text("0")
                       ],
                     ),
                   ),
@@ -170,7 +178,7 @@ class _WorldwideState extends State<Worldwide> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Deaths"),
-                        Text(cases["deaths"].toString())
+                        deaths != null ? Text(deaths) : Text("0")
                       ],
                     ),
                   ),
@@ -190,7 +198,9 @@ class _WorldwideState extends State<Worldwide> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Affected Country"),
-                        Text(cases["affectedCountries"].toString())
+                        affectedCountries != null
+                            ? Text(affectedCountries)
+                            : Text("0")
                       ],
                     ),
                   ),
