@@ -3,7 +3,13 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' show json;
 import 'package:fl_chart/fl_chart.dart';
 
-String confirmed, active, deaths, recovered, affectedCountries;
+String confirmed,
+    active,
+    deaths,
+    recovered,
+    affectedCountries,
+    todayDeaths,
+    todayCases;
 
 class Worldwide extends StatefulWidget {
   @override
@@ -22,6 +28,8 @@ class _WorldwideState extends State<Worldwide> {
       deaths = cases["deaths"].toString();
       recovered = cases["recovered"].toString();
       affectedCountries = cases["affectedCountries"].toString();
+      todayDeaths = cases["todayDeaths"].toString();
+      todayCases = cases["todayCases"].toString();
     });
   }
 
@@ -39,11 +47,15 @@ class _WorldwideState extends State<Worldwide> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(left: 15, top: 15, right: 15),
+            margin: EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 15),
             child: Card(
               child: Expanded(
                 child: Container(
-                  height: 200,
+                  height: ((MediaQuery.of(context).size.height) -
+                          (MediaQuery.of(context).padding.top) -
+                          (kToolbarHeight) -
+                          (kBottomNavigationBarHeight)) *
+                      0.27,
                   child: Row(
                     children: [
                       active != null
@@ -121,8 +133,12 @@ class _WorldwideState extends State<Worldwide> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(15),
-            height: 150,
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+            height: ((MediaQuery.of(context).size.height) -
+                    (MediaQuery.of(context).padding.top) -
+                    (kToolbarHeight) -
+                    (kBottomNavigationBarHeight)) *
+                0.19,
             child: Row(
               children: [
                 Expanded(
@@ -155,7 +171,11 @@ class _WorldwideState extends State<Worldwide> {
             ),
           ),
           Container(
-            height: 150,
+            height: ((MediaQuery.of(context).size.height) -
+                    (MediaQuery.of(context).padding.top) -
+                    (kToolbarHeight) -
+                    (kBottomNavigationBarHeight)) *
+                0.19,
             padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
             child: Row(
               children: [
@@ -187,8 +207,48 @@ class _WorldwideState extends State<Worldwide> {
             ),
           ),
           Container(
+            height: ((MediaQuery.of(context).size.height) -
+                    (MediaQuery.of(context).padding.top) -
+                    (kToolbarHeight) -
+                    (kBottomNavigationBarHeight)) *
+                0.19,
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Card(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Today Cases"),
+                        todayCases != null ? Text(todayCases) : Text("0")
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Card(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Today Deaths"),
+                        todayDeaths != null ? Text(todayDeaths) : Text("0")
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
             padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-            height: 100,
+            height: ((MediaQuery.of(context).size.height) -
+                    (MediaQuery.of(context).padding.top) -
+                    (kToolbarHeight) -
+                    (kBottomNavigationBarHeight)) *
+                0.15,
             child: Row(
               children: [
                 Expanded(

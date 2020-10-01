@@ -4,14 +4,17 @@ import './Worldwide.dart';
 import './Statewise.dart';
 
 class IndiaCases extends StatelessWidget {
-  final String confirmed, active, recovered, deaths, lastUpadtedTime;
+  final String confirmed, active, recovered, deaths, lastUpadtedTime, stateName;
+  final bool isState;
 
   IndiaCases(
       {this.active,
       this.confirmed,
       this.recovered,
       this.deaths,
-      this.lastUpadtedTime});
+      this.lastUpadtedTime,
+      this.isState,
+      this.stateName});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +29,9 @@ class IndiaCases extends StatelessWidget {
             child: Card(
               child: Expanded(
                 child: Container(
-                  height: 200,
+                  height: ((MediaQuery.of(context).size.height) -
+                          (MediaQuery.of(context).padding.top)) *
+                      0.25,
                   child: Row(
                     children: [
                       active != null
@@ -103,9 +108,33 @@ class IndiaCases extends StatelessWidget {
               ),
             ),
           ),
+          if (isState)
+            Container(
+                margin: EdgeInsets.fromLTRB(15, 5, 15, 0),
+                height: ((MediaQuery.of(context).size.height) -
+                        (MediaQuery.of(context).padding.top)) *
+                    0.1,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Card(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("State Name"),
+                            stateName != null ? Text(stateName) : Text("-----"),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
           Container(
             padding: EdgeInsets.all(15),
-            height: 150,
+            height: ((MediaQuery.of(context).size.height) -
+                    (MediaQuery.of(context).padding.top)) *
+                0.2,
             child: Row(
               children: [
                 Expanded(
@@ -138,7 +167,9 @@ class IndiaCases extends StatelessWidget {
             ),
           ),
           Container(
-            height: 150,
+            height: ((MediaQuery.of(context).size.height) -
+                    (MediaQuery.of(context).padding.top)) *
+                0.2,
             padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
             child: Row(
               children: [
@@ -171,7 +202,9 @@ class IndiaCases extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-            height: 100,
+            height: ((MediaQuery.of(context).size.height) -
+                    (MediaQuery.of(context).padding.top)) *
+                0.12,
             child: Row(
               children: [
                 Expanded(
@@ -191,49 +224,50 @@ class IndiaCases extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-                  child: ButtonTheme(
-                    minWidth: 190,
-                    height: 60,
-                    child: RaisedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => StatewiseCases(),
-                          ),
-                        );
-                      },
-                      child: Text("Statewise"),
+          if (!isState)
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                    child: ButtonTheme(
+                      minWidth: 190,
+                      height: 60,
+                      child: RaisedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => StatewiseCases(),
+                            ),
+                          );
+                        },
+                        child: Text("Statewise"),
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-                  child: ButtonTheme(
-                    height: 60,
-                    minWidth: 190,
-                    child: RaisedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Worldwide(),
-                          ),
-                        );
-                      },
-                      child: Text("WorldWide"),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                    child: ButtonTheme(
+                      height: 60,
+                      minWidth: 190,
+                      child: RaisedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Worldwide(),
+                            ),
+                          );
+                        },
+                        child: Text("WorldWide"),
+                      ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
-          )
         ],
       ),
     );

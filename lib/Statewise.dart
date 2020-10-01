@@ -80,6 +80,8 @@ class _StatewiseCasesState extends State<StatewiseCases> {
                                 lastUpadtedTime: cases[index + 1]
                                     ["lastupdatedtime"],
                                 recovered: cases[index + 1]["recovered"],
+                                isState: true,
+                                stateName: cases[index + 1]["state"],
                               ),
                             ),
                           );

@@ -56,6 +56,7 @@ class _MyAppState extends State<MyApp> {
                 deaths: deaths,
                 recovered: recovered,
                 lastUpadtedTime: lastUpadtedTime,
+                isState: false,
               )
             : new Center(child: new CircularProgressIndicator()),
       ),
