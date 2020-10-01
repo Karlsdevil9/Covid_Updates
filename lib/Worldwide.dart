@@ -10,6 +10,7 @@ String confirmed,
     affectedCountries,
     todayDeaths,
     todayCases;
+bool dataFetched = false;
 
 class Worldwide extends StatefulWidget {
   @override
@@ -30,6 +31,7 @@ class _WorldwideState extends State<Worldwide> {
       affectedCountries = cases["affectedCountries"].toString();
       todayDeaths = cases["todayDeaths"].toString();
       todayCases = cases["todayCases"].toString();
+      dataFetched = true;
     });
   }
 
@@ -43,233 +45,249 @@ class _WorldwideState extends State<Worldwide> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Covid19_Updates")),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 15),
-            child: Card(
-              child: Expanded(
-                child: Container(
+      body: dataFetched
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin:
+                      EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 15),
+                  child: Card(
+                    elevation: 5,
+                    child: Expanded(
+                      child: Container(
+                        height: ((MediaQuery.of(context).size.height) -
+                                (MediaQuery.of(context).padding.top) -
+                                (kToolbarHeight) -
+                                (kBottomNavigationBarHeight)) *
+                            0.27,
+                        child: Row(
+                          children: [
+                            active != null
+                                ? PieChart(
+                                    PieChartData(
+                                      sectionsSpace: 0,
+                                      centerSpaceRadius: 40,
+                                      borderData: FlBorderData(show: false),
+                                      sections: [
+                                        PieChartSectionData(
+                                          showTitle: false,
+                                          value: double.parse(active),
+                                          color: Colors.deepOrangeAccent,
+                                          title: "Active",
+                                        ),
+                                        PieChartSectionData(
+                                          showTitle: false,
+                                          title: "Deaths",
+                                          color: Colors.redAccent,
+                                          value: double.parse(deaths),
+                                        ),
+                                        PieChartSectionData(
+                                          showTitle: false,
+                                          title: "Recovered",
+                                          color: Colors.green,
+                                          value: double.parse(recovered),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : new Center(
+                                    child: new CircularProgressIndicator()),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.all(5),
+                                      color: Colors.deepOrangeAccent,
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                    Text("Active"),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.all(5),
+                                      color: Colors.redAccent,
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                    Text("Deaths"),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.all(5),
+                                      color: Colors.greenAccent,
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                    Text("Recovered"),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
                   height: ((MediaQuery.of(context).size.height) -
                           (MediaQuery.of(context).padding.top) -
                           (kToolbarHeight) -
                           (kBottomNavigationBarHeight)) *
-                      0.27,
+                      0.19,
                   child: Row(
                     children: [
-                      active != null
-                          ? PieChart(
-                              PieChartData(
-                                sectionsSpace: 0,
-                                centerSpaceRadius: 40,
-                                borderData: FlBorderData(show: false),
-                                sections: [
-                                  PieChartSectionData(
-                                    showTitle: false,
-                                    value: double.parse(active),
-                                    color: Colors.deepOrangeAccent,
-                                    title: "Active",
-                                  ),
-                                  PieChartSectionData(
-                                    showTitle: false,
-                                    title: "Recovered",
-                                    color: Colors.green,
-                                    value: double.parse(recovered),
-                                  ),
-                                  PieChartSectionData(
-                                    showTitle: false,
-                                    title: "Deaths",
-                                    color: Colors.redAccent,
-                                    value: double.parse(deaths),
-                                  )
-                                ],
-                              ),
-                            )
-                          : new Center(child: new CircularProgressIndicator()),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
+                      Expanded(
+                        flex: 1,
+                        child: Card(
+                          elevation: 5,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                margin: EdgeInsets.all(5),
-                                color: Colors.deepOrangeAccent,
-                                height: 20,
-                                width: 20,
-                              ),
+                              Text("Confirmed"),
+                              cases != null ? Text(confirmed) : Text("0")
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Card(
+                          elevation: 5,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
                               Text("Active"),
+                              active != null ? Text(active) : Text("0"),
                             ],
                           ),
-                          Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.all(5),
-                                color: Colors.greenAccent,
-                                height: 20,
-                                width: 20,
-                              ),
-                              Text("Recovered"),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.all(5),
-                                color: Colors.redAccent,
-                                height: 20,
-                                width: 20,
-                              ),
-                              Text("Deaths"),
-                            ],
-                          ),
-                        ],
-                      )
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-            height: ((MediaQuery.of(context).size.height) -
-                    (MediaQuery.of(context).padding.top) -
-                    (kToolbarHeight) -
-                    (kBottomNavigationBarHeight)) *
-                0.19,
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Card(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Confirmed"),
-                        cases != null ? Text(confirmed) : Text("0")
-                      ],
-                    ),
+                Container(
+                  height: ((MediaQuery.of(context).size.height) -
+                          (MediaQuery.of(context).padding.top) -
+                          (kToolbarHeight) -
+                          (kBottomNavigationBarHeight)) *
+                      0.19,
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Card(
+                          elevation: 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Recovered"),
+                              recovered != null ? Text(recovered) : Text("0")
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Card(
+                          elevation: 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Deaths"),
+                              deaths != null ? Text(deaths) : Text("0")
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Card(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Active"),
-                        active != null ? Text(active) : Text("0"),
-                      ],
-                    ),
+                Container(
+                  height: ((MediaQuery.of(context).size.height) -
+                          (MediaQuery.of(context).padding.top) -
+                          (kToolbarHeight) -
+                          (kBottomNavigationBarHeight)) *
+                      0.19,
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Card(
+                          elevation: 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Today Cases"),
+                              todayCases != null ? Text(todayCases) : Text("0")
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Card(
+                          elevation: 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Today Deaths"),
+                              todayDeaths != null
+                                  ? Text(todayDeaths)
+                                  : Text("0")
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
-          Container(
-            height: ((MediaQuery.of(context).size.height) -
-                    (MediaQuery.of(context).padding.top) -
-                    (kToolbarHeight) -
-                    (kBottomNavigationBarHeight)) *
-                0.19,
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Card(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Recovered"),
-                        recovered != null ? Text(recovered) : Text("0")
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Card(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Deaths"),
-                        deaths != null ? Text(deaths) : Text("0")
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            height: ((MediaQuery.of(context).size.height) -
-                    (MediaQuery.of(context).padding.top) -
-                    (kToolbarHeight) -
-                    (kBottomNavigationBarHeight)) *
-                0.19,
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Card(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Today Cases"),
-                        todayCases != null ? Text(todayCases) : Text("0")
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Card(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Today Deaths"),
-                        todayDeaths != null ? Text(todayDeaths) : Text("0")
-                      ],
-                    ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  height: ((MediaQuery.of(context).size.height) -
+                          (MediaQuery.of(context).padding.top) -
+                          (kToolbarHeight) -
+                          (kBottomNavigationBarHeight)) *
+                      0.15,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Card(
+                          elevation: 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Affected Country"),
+                              affectedCountries != null
+                                  ? Text(affectedCountries)
+                                  : Text("0")
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
+            )
+          : new Center(
+              child: new CircularProgressIndicator(),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-            height: ((MediaQuery.of(context).size.height) -
-                    (MediaQuery.of(context).padding.top) -
-                    (kToolbarHeight) -
-                    (kBottomNavigationBarHeight)) *
-                0.15,
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Card(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Affected Country"),
-                        affectedCountries != null
-                            ? Text(affectedCountries)
-                            : Text("0")
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

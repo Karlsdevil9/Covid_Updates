@@ -27,6 +27,7 @@ class IndiaCases extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(left: 15, top: 15, right: 15),
             child: Card(
+              elevation: 5,
               child: Expanded(
                 child: Container(
                   height: ((MediaQuery.of(context).size.height) -
@@ -82,22 +83,22 @@ class IndiaCases extends StatelessWidget {
                             children: [
                               Container(
                                 margin: EdgeInsets.all(5),
-                                color: Colors.greenAccent,
+                                color: Colors.redAccent,
                                 height: 20,
                                 width: 20,
                               ),
-                              Text("Recovered"),
+                              Text("Deaths"),
                             ],
                           ),
                           Row(
                             children: [
                               Container(
                                 margin: EdgeInsets.all(5),
-                                color: Colors.redAccent,
+                                color: Colors.greenAccent,
                                 height: 20,
                                 width: 20,
                               ),
-                              Text("Deaths"),
+                              Text("Recovered"),
                             ],
                           ),
                         ],
@@ -118,6 +119,7 @@ class IndiaCases extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Card(
+                        elevation: 5,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -140,6 +142,7 @@ class IndiaCases extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Card(
+                    elevation: 5,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -153,6 +156,7 @@ class IndiaCases extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Card(
+                    elevation: 5,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -176,6 +180,7 @@ class IndiaCases extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Card(
+                    elevation: 5,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -188,6 +193,7 @@ class IndiaCases extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Card(
+                    elevation: 5,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -210,6 +216,7 @@ class IndiaCases extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Card(
+                    elevation: 5,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

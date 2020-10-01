@@ -46,10 +46,12 @@ class _StatewiseCasesState extends State<StatewiseCases> {
                   Text(
                     "State Name",
                     textAlign: TextAlign.left,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   Text(
                     "Total Cases",
                     textAlign: TextAlign.end,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                 ],
               ),
