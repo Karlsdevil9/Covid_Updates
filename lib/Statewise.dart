@@ -31,6 +31,7 @@ class _StatewiseCasesState extends State<StatewiseCases> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(242, 242, 242, 1),
       appBar: AppBar(
         title: Text("CovidUpdates"),
       ),
@@ -39,6 +40,7 @@ class _StatewiseCasesState extends State<StatewiseCases> {
           Container(
             height: 70,
             child: Card(
+              color: Color.fromRGBO(230, 230, 230, 1),
               elevation: 8,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -46,12 +48,18 @@ class _StatewiseCasesState extends State<StatewiseCases> {
                   Text(
                     "State Name",
                     textAlign: TextAlign.left,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 18),
                   ),
                   Text(
                     "Total Cases",
                     textAlign: TextAlign.end,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 18),
                   ),
                 ],
               ),
@@ -67,10 +75,25 @@ class _StatewiseCasesState extends State<StatewiseCases> {
                     margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                     height: 70,
                     child: Card(
+                      color: Color.fromRGBO(230, 230, 230, 1),
                       elevation: 5,
                       child: new ListTile(
-                        leading: Text(cases[index + 1]["state"]),
-                        trailing: Text(cases[index + 1]["confirmed"]),
+                        leading: Text(
+                          cases[index + 1]["state"],
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 15,
+                          ),
+                        ),
+                        trailing: Text(
+                          cases[index + 1]["confirmed"],
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 15,
+                          ),
+                        ),
                         onTap: () {
                           Navigator.push(
                             context,

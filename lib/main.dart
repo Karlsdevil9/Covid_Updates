@@ -48,6 +48,9 @@ class _MyAppState extends State<MyApp> {
     ]);
     return MaterialApp(
       title: "Covid19Updates",
+      theme: ThemeData(
+          primaryColor: Color.fromRGBO(92, 6, 50, 1),
+          accentColor: Color.fromRGBO(230, 255, 255, 1)),
       home: Scaffold(
         body: check
             ? IndiaCases(
