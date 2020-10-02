@@ -44,6 +44,7 @@ class _WorldwideState extends State<Worldwide> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(242, 242, 242, 1),
       appBar: AppBar(title: Text("Covid19_Updates")),
       body: dataFetched
           ? Column(
@@ -53,6 +54,7 @@ class _WorldwideState extends State<Worldwide> {
                   margin:
                       EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 15),
                   child: Card(
+                    color: Color.fromRGBO(230, 230, 230, 1),
                     elevation: 5,
                     child: Expanded(
                       child: Container(
@@ -60,77 +62,105 @@ class _WorldwideState extends State<Worldwide> {
                                 (MediaQuery.of(context).padding.top) -
                                 (kToolbarHeight) -
                                 (kBottomNavigationBarHeight)) *
-                            0.27,
+                            0.30,
                         child: Row(
                           children: [
                             active != null
-                                ? PieChart(
-                                    PieChartData(
-                                      sectionsSpace: 0,
-                                      centerSpaceRadius: 40,
-                                      borderData: FlBorderData(show: false),
-                                      sections: [
-                                        PieChartSectionData(
-                                          showTitle: false,
-                                          value: double.parse(active),
-                                          color: Colors.deepOrangeAccent,
-                                          title: "Active",
-                                        ),
-                                        PieChartSectionData(
-                                          showTitle: false,
-                                          title: "Deaths",
-                                          color: Colors.redAccent,
-                                          value: double.parse(deaths),
-                                        ),
-                                        PieChartSectionData(
-                                          showTitle: false,
-                                          title: "Recovered",
-                                          color: Colors.green,
-                                          value: double.parse(recovered),
-                                        ),
-                                      ],
+                                ? Container(
+                                    width: 250,
+                                    child: PieChart(
+                                      PieChartData(
+                                        startDegreeOffset: 10,
+                                        sectionsSpace: 0,
+                                        centerSpaceRadius: 45,
+                                        borderData: FlBorderData(show: false),
+                                        sections: [
+                                          PieChartSectionData(
+                                            showTitle: false,
+                                            value: double.parse(active),
+                                            color:
+                                                Color.fromRGBO(25, 49, 103, 1),
+                                            title: "Active",
+                                          ),
+                                          PieChartSectionData(
+                                            showTitle: false,
+                                            title: "Recovered",
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            value: double.parse(recovered),
+                                          ),
+                                          PieChartSectionData(
+                                            showTitle: false,
+                                            title: "Deaths",
+                                            color:
+                                                Color.fromRGBO(255, 77, 77, 1),
+                                            value: double.parse(deaths),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   )
                                 : new Center(
                                     child: new CircularProgressIndicator()),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.all(5),
-                                      color: Colors.deepOrangeAccent,
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                    Text("Active"),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.all(5),
-                                      color: Colors.redAccent,
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                    Text("Deaths"),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.all(5),
-                                      color: Colors.greenAccent,
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                    Text("Recovered"),
-                                  ],
-                                ),
-                              ],
+                            Container(
+                              margin: EdgeInsets.fromLTRB(30, 0, 0, 10),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.all(5),
+                                        color: Color.fromRGBO(25, 49, 103, 1),
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                      Text(
+                                        "Active",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.all(5),
+                                        color: Color.fromRGBO(255, 77, 77, 1),
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                      Text(
+                                        "Deaths",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.all(5),
+                                        color: Theme.of(context).primaryColor,
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                      Text(
+                                        "Recovered",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             )
                           ],
                         ),
@@ -150,13 +180,25 @@ class _WorldwideState extends State<Worldwide> {
                       Expanded(
                         flex: 1,
                         child: Card(
+                          color: Color.fromRGBO(230, 230, 230, 1),
                           elevation: 5,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Confirmed"),
-                              cases != null ? Text(confirmed) : Text("0")
+                              Text("Confirmed",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 17)),
+                              cases != null
+                                  ? Text(
+                                      confirmed,
+                                      style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    )
+                                  : Text("0")
                             ],
                           ),
                         ),
@@ -164,13 +206,25 @@ class _WorldwideState extends State<Worldwide> {
                       Expanded(
                         flex: 1,
                         child: Card(
+                          color: Color.fromRGBO(230, 230, 230, 1),
                           elevation: 5,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Active"),
-                              active != null ? Text(active) : Text("0"),
+                              Text("Active",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 17)),
+                              active != null
+                                  ? Text(
+                                      active,
+                                      style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    )
+                                  : Text("0"),
                             ],
                           ),
                         ),
@@ -190,12 +244,24 @@ class _WorldwideState extends State<Worldwide> {
                       Expanded(
                         flex: 1,
                         child: Card(
+                          color: Color.fromRGBO(230, 230, 230, 1),
                           elevation: 5,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Recovered"),
-                              recovered != null ? Text(recovered) : Text("0")
+                              Text("Recovered",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 17)),
+                              recovered != null
+                                  ? Text(
+                                      recovered,
+                                      style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    )
+                                  : Text("0")
                             ],
                           ),
                         ),
@@ -204,11 +270,23 @@ class _WorldwideState extends State<Worldwide> {
                         flex: 1,
                         child: Card(
                           elevation: 5,
+                          color: Color.fromRGBO(230, 230, 230, 1),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Deaths"),
-                              deaths != null ? Text(deaths) : Text("0")
+                              Text("Deaths",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 17)),
+                              deaths != null
+                                  ? Text(
+                                      deaths,
+                                      style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    )
+                                  : Text("0")
                             ],
                           ),
                         ),
@@ -228,12 +306,24 @@ class _WorldwideState extends State<Worldwide> {
                       Expanded(
                         flex: 1,
                         child: Card(
+                          color: Color.fromRGBO(230, 230, 230, 1),
                           elevation: 5,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Today Cases"),
-                              todayCases != null ? Text(todayCases) : Text("0")
+                              Text("Today Cases",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 17)),
+                              todayCases != null
+                                  ? Text(
+                                      todayCases,
+                                      style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    )
+                                  : Text("0")
                             ],
                           ),
                         ),
@@ -241,13 +331,23 @@ class _WorldwideState extends State<Worldwide> {
                       Expanded(
                         flex: 1,
                         child: Card(
+                          color: Color.fromRGBO(230, 230, 230, 1),
                           elevation: 5,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Today Deaths"),
+                              Text("Today Deaths",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 17)),
                               todayDeaths != null
-                                  ? Text(todayDeaths)
+                                  ? Text(
+                                      todayDeaths,
+                                      style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    )
                                   : Text("0")
                             ],
                           ),
@@ -262,19 +362,29 @@ class _WorldwideState extends State<Worldwide> {
                           (MediaQuery.of(context).padding.top) -
                           (kToolbarHeight) -
                           (kBottomNavigationBarHeight)) *
-                      0.15,
+                      0.13,
                   child: Row(
                     children: [
                       Expanded(
                         flex: 1,
                         child: Card(
+                          color: Color.fromRGBO(230, 230, 230, 1),
                           elevation: 5,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Affected Country"),
+                              Text("Affected Country",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 17)),
                               affectedCountries != null
-                                  ? Text(affectedCountries)
+                                  ? Text(
+                                      affectedCountries,
+                                      style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    )
                                   : Text("0")
                             ],
                           ),
