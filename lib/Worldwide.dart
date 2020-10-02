@@ -56,115 +56,127 @@ class _WorldwideState extends State<Worldwide> {
                   child: Card(
                     color: Color.fromRGBO(230, 230, 230, 1),
                     elevation: 5,
-                    child: Expanded(
-                      child: Container(
-                        height: ((MediaQuery.of(context).size.height) -
-                                (MediaQuery.of(context).padding.top) -
-                                (kToolbarHeight) -
-                                (kBottomNavigationBarHeight)) *
-                            0.30,
-                        child: Row(
-                          children: [
-                            active != null
-                                ? Container(
-                                    width: 250,
-                                    child: PieChart(
-                                      PieChartData(
-                                        startDegreeOffset: 10,
-                                        sectionsSpace: 0,
-                                        centerSpaceRadius: 45,
-                                        borderData: FlBorderData(show: false),
-                                        sections: [
-                                          PieChartSectionData(
-                                            showTitle: false,
-                                            value: double.parse(active),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: ((MediaQuery.of(context).size.height) -
+                                    (MediaQuery.of(context).padding.top) -
+                                    (kToolbarHeight) -
+                                    (kBottomNavigationBarHeight)) *
+                                0.30,
+                            child: Row(
+                              children: [
+                                active != null
+                                    ? Container(
+                                        width: 250,
+                                        child: PieChart(
+                                          PieChartData(
+                                            startDegreeOffset: 10,
+                                            sectionsSpace: 0,
+                                            centerSpaceRadius: 45,
+                                            borderData:
+                                                FlBorderData(show: false),
+                                            sections: [
+                                              PieChartSectionData(
+                                                showTitle: false,
+                                                value: double.parse(active),
+                                                color: Color.fromRGBO(
+                                                    25, 49, 103, 1),
+                                                title: "Active",
+                                              ),
+                                              PieChartSectionData(
+                                                showTitle: false,
+                                                title: "Recovered",
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                value: double.parse(recovered),
+                                              ),
+                                              PieChartSectionData(
+                                                showTitle: false,
+                                                title: "Deaths",
+                                                color: Color.fromRGBO(
+                                                    255, 77, 77, 1),
+                                                value: double.parse(deaths),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    : new Center(
+                                        child: new CircularProgressIndicator()),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(30, 0, 0, 10),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.all(5),
                                             color:
                                                 Color.fromRGBO(25, 49, 103, 1),
-                                            title: "Active",
+                                            height: 20,
+                                            width: 20,
                                           ),
-                                          PieChartSectionData(
-                                            showTitle: false,
-                                            title: "Recovered",
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            value: double.parse(recovered),
-                                          ),
-                                          PieChartSectionData(
-                                            showTitle: false,
-                                            title: "Deaths",
-                                            color:
-                                                Color.fromRGBO(255, 77, 77, 1),
-                                            value: double.parse(deaths),
+                                          Text(
+                                            "Active",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                            ),
                                           ),
                                         ],
                                       ),
-                                    ),
-                                  )
-                                : new Center(
-                                    child: new CircularProgressIndicator()),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(30, 0, 0, 10),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.all(5),
-                                        color: Color.fromRGBO(25, 49, 103, 1),
-                                        height: 20,
-                                        width: 20,
+                                      Row(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.all(5),
+                                            color:
+                                                Color.fromRGBO(255, 77, 77, 1),
+                                            height: 20,
+                                            width: 20,
+                                          ),
+                                          Text(
+                                            "Deaths",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        "Active",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Theme.of(context).primaryColor,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.all(5),
-                                        color: Color.fromRGBO(255, 77, 77, 1),
-                                        height: 20,
-                                        width: 20,
-                                      ),
-                                      Text(
-                                        "Deaths",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Theme.of(context).primaryColor,
-                                        ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.all(5),
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            height: 20,
+                                            width: 20,
+                                          ),
+                                          Text(
+                                            "Recovered",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.all(5),
-                                        color: Theme.of(context).primaryColor,
-                                        height: 20,
-                                        width: 20,
-                                      ),
-                                      Text(
-                                        "Recovered",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Theme.of(context).primaryColor,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ),
